@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class login_koneksi {
     
     private static Connection koneksi;
-    private static Connection GetConnection() throws SQLException {
+    public static Connection GetConnection() throws SQLException {
         if(koneksi == null) {
             Driver driver = new Driver() {
                 @Override

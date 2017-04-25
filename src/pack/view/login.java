@@ -11,15 +11,19 @@ import static java.sql.DriverManager.getConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import pack.control.login_koneksi;
 
 /**
  *
  * @author faizaaulia
  */
 public class login extends javax.swing.JFrame {
+    
+    public static String user;
 
     /**
      * Creates new form login
@@ -41,7 +45,7 @@ public class login extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtnama = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtpass = new javax.swing.JTextField();
+        txtpass = new javax.swing.JPasswordField();
         jPanel2 = new javax.swing.JPanel();
         Exit = new javax.swing.JButton();
         SignIn = new javax.swing.JButton();
@@ -63,18 +67,12 @@ public class login extends javax.swing.JFrame {
                 txtnamaActionPerformed(evt);
             }
         });
-        jPanel1.add(txtnama, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 280, 30));
+        jPanel1.add(txtnama, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 280, 30));
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Password");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, -1, -1));
-
-        txtpass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtpassActionPerformed(evt);
-            }
-        });
         jPanel1.add(txtpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 280, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 300, 140));
@@ -108,49 +106,57 @@ public class login extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 300, 90));
 
-        pack();
+        setSize(new java.awt.Dimension(362, 328));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnamaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnamaActionPerformed
 
-    private void txtpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtpassActionPerformed
-
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_ExitActionPerformed
 
     private void SignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignUpActionPerformed
         // TODO add your handling code here:
+        String user = txtnama.getText();
+        String p = txtpass.getText();
+        
+        try{
+            try(Statement statement = (Statement) login_koneksi.GetConnection().createStatement()){
+                statement.executeUpdate("INSERT INTO tb_akun VALUES ('"+user+"', '"+p+"')");
+            } 
+            JOptionPane.showMessageDialog(null, "Sign Up Berhasil");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "GAGAL! Silahkan Ulangi");
+        }
     }//GEN-LAST:event_SignUpActionPerformed
 
     private void SignInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignInActionPerformed
         // TODO add your handling code here:
-        Connection connection = null;
+        Connection connection;
         PreparedStatement ps;
         try {
-            connection DriverManager.getConnection("jbdc:mysql://localhost/"
-                    + "toko?zeroDateTimebehavior=convertToNull","root","");
-            ps = connection.prepareStatement("SELECT * FROM 'tb_akun' WHERE "
-                    + "'username' ? AND 'password' = ?");
-            ps.setString(1,txtnama.getText());
-            ps.setString(2,txtpass.getText());
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/toko?zeroDate TimeBehavior=convertToNull", "root", "");
+            ps = connection.prepareStatement("SELECT * FROM `tb_akun` WHERE `username` = ? AND `password` = ?");
+            ps.setString(1, txtnama.getText());
+            ps.setString(2, txtpass.getText());
             ResultSet result = ps.executeQuery();
-            if(result.next()) {
+            if (result.next()) {
                 new home().show();
+                //perlu deklarasi user diclass utama.                 
                 user = txtnama.getText();
+                
                 this.dispose();
-            }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(rootPane, "Salah!");
                 txtpass.setText("");
                 txtnama.requestFocus();
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane,"Gagal!");
+            JOptionPane.showMessageDialog(rootPane, "Gagal!");
         }
     }//GEN-LAST:event_SignInActionPerformed
 
@@ -198,6 +204,6 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtnama;
-    private javax.swing.JTextField txtpass;
+    private javax.swing.JPasswordField txtpass;
     // End of variables declaration//GEN-END:variables
 }

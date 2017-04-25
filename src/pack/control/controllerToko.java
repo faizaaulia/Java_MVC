@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException; 
 import java.util.List; 
 import javax.swing.JOptionPane; 
-import javax.swing.table.DefaultTab;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import pack.dao.daoToko; 
 import pack.dao.implementToko; 
@@ -22,66 +22,60 @@ import pack.model.tableModelToko;
  * @author faizaaulia
  */
 public class controllerToko {
-    
-    home hm;;
+    home hm;
     implementToko impToko;
     List<m_Toko> lt;
-    
+
     public controllerToko(home hm) {
         this.hm = hm;
-        impToko = (implementToko) new daoToko();
+        impToko = new daoToko();
         lt = impToko.getAll();
     }
-    
-    //mengkosongkan isian field
-    public void Rest() {
+
+    //mengkosongkan isian field     
+    public void Reset() {
         hm.getTxtKode().setText("");
         hm.getTxtNama().setText("");
         hm.getTxtHarga().setText("");
         hm.getCbKategori().setSelectedItem(null);
         hm.getCbJenis().setSelectedItem(null);
-    }
-    
-    //menghapus data yang dipilih
+    }      
+    //menghapus data yang dipilih     
     public void Hapus() {
-        if(!hm.getTxtKode().getText().trim().isEmpty()) {
-            
+        if (hm.getTxtKode().getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(hm, "Masukkan kode barang");
         } else {
             String kode = (hm.getTxtKode().getText());
-            impToko.Hapus(kode);
-            JOptionPane.showMessageDialog(hm, "Data Berhasil dihapus!");
+            impToko.HapusData(kode);
+            JOptionPane.showMessageDialog(hm, "Data berhasil dihapus");
         }
-    }
-
-    //menyimpan data
+    }     
+    //menyimpan data     
     public void SimpanData() {
         m_Toko toko = new m_Toko();
         toko.setkode(hm.getTxtKode().getText());
         toko.setnama(hm.getTxtNama().getText());
         toko.setharga(hm.getTxtHarga().getText());
-    
         toko.setkategori(hm.getCbKategori().getSelectedItem().toString());
         toko.setjenis(hm.getCbJenis().getSelectedItem().toString());
         impToko.SimpanData(toko);
-    }
-    
-    //mengubah data
+    }     
+    //mengubah data     
     public void Ubah() {
         m_Toko toko = new m_Toko();
         toko.setkode(hm.getTxtKode().getText());
-        toko.setnama(hm.getTxtKode().getText());
+        toko.setnama(hm.getTxtNama().getText());
         toko.setkategori(hm.getCbKategori().getSelectedItem().toString());
         toko.setjenis(hm.getCbJenis().getSelectedItem().toString());
         toko.setharga(hm.getTxtHarga().getText());
-        impToko.Ubah(toko);
+        impToko.UbahData(toko);
     }
-    
     public void isiTable() {
         lt = impToko.getAll();
         tableModelToko tmt = new tableModelToko(lt);
         hm.getTableData().setModel(tmt);
     }
-    
+
     public void isiField(int row) {
         hm.getTxtKode().setText(lt.get(row).getkode().toString());
         hm.getTxtNama().setText(lt.get(row).getnama().toString());
@@ -89,18 +83,18 @@ public class controllerToko {
         hm.getCbJenis().setSelectedItem(lt.get(row).getjenis().toString());
         hm.getTxtHarga().setText(lt.get(row).getharga().toString());
     }
-    
+
     public void CariKategori() {
-        if(hm.getCbCariKategori().getSelectedItem().toString().isEmpty) {
-            impToko.getCariKategori((String)hm.getCbCariKategori().getSelectedItem());
+        if (!hm.getCbCariKategori().getSelectedItem().toString().isEmpty()) {
             isiTableCariKategori();
         } else {
-            JOPtionPane.showMessageDialog(hm, "Silahka Pilih Kategori!");
+            JOptionPane.showMessageDialog(hm, "Silahkan Pilih Kategori");
         }
     }
-    
-    public void isiTableCariKategori() {
-        lt = impToko.getCariKategori((String)hm.getCbKategori().getSelectedItem());
+
+    private void isiTableCariKategori() {
+        String item = hm.getCbCariKategori().getSelectedItem().toString();
+        lt = impToko.getCariKategori(item);
         tableModelToko tmt = new tableModelToko(lt);
         hm.getTableData().setModel(tmt);
     }

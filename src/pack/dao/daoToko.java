@@ -22,20 +22,17 @@ import pack.model.m_Toko;
  */
 public class daoToko implements implementToko{
     Connection connection;
-    public String TampilData = "SELECT * FROM 'barang'";
-    public String UbahData = "UPDATE 'barang' SET 'Nama_Barang'=?,`Harga`=?, "
-            + "`Kategori`=?, `Jenis`=? Where `Kode_Barang`=?;";
-    public String SimpanData = "INSERT INTO 'barang' VALUES (?,?,?,?,?";
-    public String HapusData = "DELETE FROM 'barang'";
-    public String CariKategori = "SELECT 'Kode_Barang', 'Nama_Barang', "
-            + "'Kategori', 'Jenis', 'Harga' FROM 'barang' WHERE Kategori like?";
+    public String TampilData = "SELECT * FROM `barang`";
+    public String UbahData = "UPDATE `barang` SET `Nama_Barang`=?, `Harga`=?, `Kategori`=?, `Jenis`=? Where `Kode_Barang`=?;";
+    public String SimpanData = "INSERT INTO `barang` VALUES (?, ?, ?, ?, ?)";
+    public String HapusData = "DELETE FROM `barang` WHERE Kode_Barang=?";
+    public String CariKategori = "SELECT `Kode_Barang`, `Nama_Barang`, `Kategori`, `Jenis`, `Harga` FROM `barang` WHERE Kategori like ?";
     public daoToko() {
         connection = c_koneksi.setKoneksi();
     }
     
     @Override
-    public void TampiData(m_Toko a) {
-        
+    public void TampilData(m_Toko a) {
     }
     
     @Override
@@ -102,22 +99,38 @@ public class daoToko implements implementToko{
     
     //menampilkan data ke tabel
     @Override
-    public List<m_Toko> getAll();
-    List<m_Toko> lt = null;
-    try {
-        lt = new ArrayList<m_Toko>(); 
-        Statement st = connection.createStatement(); 
-        ResultSet rs = st.executeQuery(TampilData); 
-        while (rs.next()){ 
-            m_Toko toko = new m_Toko(); 
-            toko.setkode(rs.getString("Kode_Barang")); 
-            toko.setnama(rs.getString("Nama_Barang")); 
-            toko.setkategori(rs.getString("Kategori")); 
-            toko.setjenis(rs.getString("Jenis")); 
-            toko.setharga(rs.getString("Harga")); 
-            lt.add(toko); 
+    public List<m_Toko> getAll() {
+        List<m_Toko> lt = null;
+        try {
+            lt = new ArrayList<m_Toko>();
+            Statement st = connection.createStatement();
+            ResultSet rs = st.executeQuery(TampilData);
+            while (rs.next()) {
+                m_Toko toko = new m_Toko();
+                toko.setkode(rs.getString("Kode_Barang"));
+                toko.setnama(rs.getString("Nama_Barang"));
+                toko.setkategori(rs.getString("Kategori"));
+                toko.setjenis(rs.getString("Jenis"));
+                toko.setharga(rs.getString("Harga"));
+                lt.add(toko);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(daoToko.class.getName()).log(Level.SEVERE, null, ex);
         }
-    } catch (SQLEXception ex) {
-        Logger.getLogger(daoToko.class.getName()).log(Level.SEVERE, null, ex);
-    } return lt;
+        return lt;
+    }
+
+    @Override
+    public void HapusData(String kode) {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(HapusData);
+            statement.setString(1, kode);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(daoToko.class
+                    .getName()
+            ).log(Level.SEVERE, null, ex);
+        }
+    }
 } 

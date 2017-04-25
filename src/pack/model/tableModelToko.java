@@ -12,54 +12,55 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author faizaaulia
  */
-public class tableModelToko extends AbstractTableModel{
-    List <m_Toko> lt;
-    public tableModelToko (List <m_Toko> lt) {
+public class tableModelToko extends AbstractTableModel {
+    List<m_Toko> lt;
+
+    public tableModelToko(List<m_Toko> lt) {
         this.lt = lt;
-    }
-    
-    @Override
-    public int getColumnCount() {
-        return lt.size();
-    }
-    
-    public String getColumnName (int column) { 
-        switch (column){ 
-            case 0: 
-                return "Kode_Barang"; 
-            case 1: 
-                return "Nama_Barang"; 
-            case 2: 
-                return "Kategori"; 
-            case 3: 
-                return "Jenis"; 
-            case 4: 
-                return "Harga"; 
-            default: 
-                return null; 
-        }
-    }
-    
-    @Override 
-    public Object getValueAt (int row, int column) { 
-        switch (column){ 
-            case 0: 
-                return lt.get(row).getkode(); 
-            case 1: 
-                return lt.get(row).getnama(); 
-            case 2: 
-                return lt.get(row).getkategori(); 
-            case 3: 
-                return lt.get(row).getjenis(); 
-            case 4: 
-                return lt.get(row).getharga(); 
-            default: 
-                return null; 
-        }
     }
 
     @Override
     public int getRowCount() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return lt.size();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return 5;
+    }
+
+    public String getColumnName(int column) {
+        switch (column) {
+            case 0:
+                return "Kode_Barang";
+            case 1:
+                return "Nama_Barang";
+            case 2:
+                return "Kategori";
+            case 3:
+                return "Jenis";
+            case 4:
+                return "Harga";
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public Object getValueAt(int row, int column) {
+        switch (column) {
+            case 0:
+                return lt.get(row).getkode();
+            case 1:
+                return lt.get(row).getnama();
+            case 2:
+                return lt.get(row).getkategori();
+            case 3:
+                return lt.get(row).getjenis();
+            case 4:
+                return lt.get(row).getharga();
+            default:
+                return null;
+        }
     }
 }

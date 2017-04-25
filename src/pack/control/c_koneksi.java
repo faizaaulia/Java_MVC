@@ -20,42 +20,45 @@ import javax.swing.JOptionPane;
  */
 public class c_koneksi {
     
-    public static ResultSet executeQuery (String SQL) {
+    public static ResultSet executeQuery(String SQL) {
         ResultSet rs = null;
-        Connection koneksi = setKoneksi();
+        java.sql.Connection koneksi = setKoneksi();
         try {
-            Statement st = (Statement) koneksi.createStatement();
+            java.sql.Statement st = koneksi.createStatement();
             rs = st.executeQuery(SQL);
         } catch (SQLException ex) {
             Logger.getLogger(c_koneksi.class.getName()).log(Level.SEVERE, null, ex);
-        } return rs;
+        }
+        return rs;
     }
 
     public static int execute(String SQL) {
         int status = 0;
-        Connection koneksi = setKoneksi();
+        java.sql.Connection koneksi = setKoneksi();
         try {
-            Statement st = (Statement) koneksi.createStatement();
+            java.sql.Statement st = koneksi.createStatement();
             status = st.executeUpdate(SQL);
         } catch (SQLException ex) {
             Logger.getLogger(c_koneksi.class.getName()).log(Level.SEVERE, null, ex);
-        } return status;
+        }
+        return status;
     }
     
-    public static Connection setKoneksi() {
-        String konString = "jbdc:mysql://localhost:3306/toko";
-        Connection koneksi = null;
+    public static java.sql.Connection setKoneksi() {
+        String konString = "jdbc:mysql://localhost:3306/toko";
+        java.sql.Connection koneksi = null;
         try {
-            Class.forName("com.mysql.jbdc.Driver");
-            koneksi = (Connection) DriverManager.getConnection(konString,"root","");
-            System.out.println("Koneksi Berhasil!");
+            Class.forName("com.mysql.jdbc.Driver");
+            koneksi = (java.sql.Connection) DriverManager.getConnection(konString, "root", "");
+            System.out.println("Koneksi Berhasil");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(c_koneksi.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Koneksi Gagal!");
+            System.out.println("Koneksi Gagal");
         } catch (SQLException ex) {
             Logger.getLogger(c_koneksi.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Koneksi Gagal!");
-        } return koneksi;
+            System.out.println("Koneksi Gagal");
+        }
+        return koneksi;
     }
     
     public static Object getConnection() {

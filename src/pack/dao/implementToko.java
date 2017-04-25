@@ -13,9 +13,11 @@ import pack.model.m_Toko;
  * @author faizaaulia
  */
 public interface implementToko {
-    public void TampilData(m_Toko a); 
-    public void UbahData(m_Toko a); 
-    public void SimpanData(m_Toko a); 
-    public void HapusData(String kode); 
+    public void TampilData(m_Toko a);
+    public void UbahData(m_Toko a);
+    public void SimpanData(m_Toko a);
+    public void HapusData(String kode);
     public List<m_Toko> getCariKategori(String kategori);
+    public List<m_Toko> getAll();
+    public String user = "";
 }
