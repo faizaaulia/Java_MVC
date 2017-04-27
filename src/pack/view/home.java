@@ -139,7 +139,6 @@ public class home extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 255));
         jPanel2.setLayout(null);
 
         jLabel1.setText("Admin : ");
@@ -157,10 +156,10 @@ public class home extends javax.swing.JFrame {
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 710, 70);
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 102));
+        jPanel3.setBackground(javax.swing.UIManager.getDefaults().getColor("CheckBox.light"));
         jPanel3.setLayout(null);
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 3, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Tampilkan Berdasarkan Kategori Makanan");
         jPanel3.add(jLabel9);
         jLabel9.setBounds(10, 10, 280, 30);
@@ -188,9 +187,8 @@ public class home extends javax.swing.JFrame {
         jScrollPane1.setViewportView(Tabel1);
 
         jPanel3.add(jScrollPane1);
-        jScrollPane1.setBounds(0, 100, 660, 130);
+        jScrollPane1.setBounds(0, 60, 670, 170);
 
-        jButton1.setBackground(new java.awt.Color(204, 255, 204));
         jButton1.setText("C A R I");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,10 +196,10 @@ public class home extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButton1);
-        jButton1.setBounds(530, 10, 130, 30);
+        jButton1.setBounds(520, 10, 150, 30);
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(0, 280, 710, 240);
+        jPanel3.setBounds(0, 280, 690, 240);
 
         jLabel4.setFont(new java.awt.Font("Open Sans", 1, 11)); // NOI18N
         jLabel4.setText("Nama Barang");
@@ -242,7 +240,6 @@ public class home extends javax.swing.JFrame {
         jPanel1.add(cbjenis);
         cbjenis.setBounds(130, 210, 210, 30);
 
-        Btn_Bersih.setBackground(new java.awt.Color(204, 255, 204));
         Btn_Bersih.setText("B E R S I H K A N");
         Btn_Bersih.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,9 +247,8 @@ public class home extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Btn_Bersih);
-        Btn_Bersih.setBounds(370, 130, 150, 30);
+        Btn_Bersih.setBounds(350, 130, 150, 30);
 
-        Btn_Hapus.setBackground(new java.awt.Color(204, 255, 204));
         Btn_Hapus.setText("H A P U S");
         Btn_Hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,9 +256,8 @@ public class home extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Btn_Hapus);
-        Btn_Hapus.setBounds(540, 130, 150, 30);
+        Btn_Hapus.setBounds(520, 130, 150, 30);
 
-        Btn_Simpan.setBackground(new java.awt.Color(204, 255, 204));
         Btn_Simpan.setText("S I M P A N");
         Btn_Simpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,9 +265,8 @@ public class home extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Btn_Simpan);
-        Btn_Simpan.setBounds(370, 90, 150, 30);
+        Btn_Simpan.setBounds(350, 90, 150, 30);
 
-        Btn_Ubah.setBackground(new java.awt.Color(204, 255, 204));
         Btn_Ubah.setText("P E R B A R U I");
         Btn_Ubah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,16 +274,16 @@ public class home extends javax.swing.JFrame {
             }
         });
         jPanel1.add(Btn_Ubah);
-        Btn_Ubah.setBounds(540, 90, 150, 30);
+        Btn_Ubah.setBounds(520, 90, 150, 30);
 
         Btn_Keluar.setText("K E L U A R");
         jPanel1.add(Btn_Keluar);
-        Btn_Keluar.setBounds(370, 170, 150, 30);
+        Btn_Keluar.setBounds(350, 170, 150, 30);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 710, 510);
+        jPanel1.setBounds(0, 0, 690, 510);
 
-        setSize(new java.awt.Dimension(725, 548));
+        setSize(new java.awt.Dimension(706, 548));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 

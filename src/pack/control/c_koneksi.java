@@ -19,12 +19,12 @@ import javax.swing.JOptionPane;
  * @author faizaaulia
  */
 public class c_koneksi {
-    
+
     public static ResultSet executeQuery(String SQL) {
         ResultSet rs = null;
-        java.sql.Connection koneksi = setKoneksi();
+        Connection koneksi = setKoneksi();
         try {
-            java.sql.Statement st = koneksi.createStatement();
+            Statement st = (Statement) koneksi.createStatement();
             rs = st.executeQuery(SQL);
         } catch (SQLException ex) {
             Logger.getLogger(c_koneksi.class.getName()).log(Level.SEVERE, null, ex);
@@ -34,22 +34,22 @@ public class c_koneksi {
 
     public static int execute(String SQL) {
         int status = 0;
-        java.sql.Connection koneksi = setKoneksi();
+        Connection koneksi = setKoneksi();
         try {
-            java.sql.Statement st = koneksi.createStatement();
+            Statement st = (Statement) koneksi.createStatement();
             status = st.executeUpdate(SQL);
         } catch (SQLException ex) {
             Logger.getLogger(c_koneksi.class.getName()).log(Level.SEVERE, null, ex);
         }
         return status;
     }
-    
-    public static java.sql.Connection setKoneksi() {
+
+    public static Connection setKoneksi() {
         String konString = "jdbc:mysql://localhost:3306/toko";
-        java.sql.Connection koneksi = null;
+        Connection koneksi = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            koneksi = (java.sql.Connection) DriverManager.getConnection(konString, "root", "");
+            koneksi = (Connection) DriverManager.getConnection(konString, "root", "");
             System.out.println("Koneksi Berhasil");
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(c_koneksi.class.getName()).log(Level.SEVERE, null, ex);
@@ -60,24 +60,21 @@ public class c_koneksi {
         }
         return koneksi;
     }
-    
+
     public static Object getConnection() {
         return null;
     }
-    
     Connection con = null;
-    Statement set = null;
+    Statement st = null;
     ResultSet rs = null;
     String sql = null;
-    
-    private java.sql.Statement st;
-    
+
     public c_koneksi() {
         try {
-            con = (Connection) DriverManager.getConnection("jbdc:mysql://localhost:3306?toko","root","");
-            st = con.createStatement();
+            con = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/toko", "root", "");
+            st = (Statement) con.createStatement();
         } catch (Exception a) {
-            JOptionPane.showMessageDialog(null,"Koneksi Database Gagal!"+a);
+            JOptionPane.showMessageDialog(null, "Koneksi Database Gagal" + a);
         }
     }
 }
